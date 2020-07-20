@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "description": "blog builded with mern stack",
   "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "backend": "nodemon index.js"
+  "engine":{
+    "node":"13.8.0",
+    "npm":"6.13.6"
   },
-  "author": "EliceoH",
+  "scripts": {
+    "start": "node server/index.js",
+    "backend": "nodemon server/index.js"
+  },
+  "author": "EliceoJoel",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",
