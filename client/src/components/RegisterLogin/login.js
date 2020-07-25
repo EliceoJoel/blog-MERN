@@ -27,8 +27,8 @@ class Login extends Component {
               <div className="input-field col s12">
                 <input 
                   name="email" 
-                  value={this.state.email}
-                  onChange={e=>this.handleChange(e)}
+                  //value={this.state.email}
+                  //onChange={e=>this.handleChange(e)}
                   id="email"
                   type="email" 
                   className="validate"
@@ -45,8 +45,8 @@ class Login extends Component {
               <div className="input-field col s12">
                 <input 
                   name="password" 
-                  value={this.state.password}
-                  onChange={e=>this.handleChange(e)}
+                  //value={this.state.password}
+                  //onChange={e=>this.handleChange(e)}
                   id="password"
                   type="password" 
                   className="validate"
