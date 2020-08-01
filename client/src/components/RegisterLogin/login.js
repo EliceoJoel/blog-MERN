@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { loginUser } from '../../actions/user_actions'
+import { Link } from 'react-router-dom';
 
 class Login extends Component {
 
@@ -11,7 +12,7 @@ class Login extends Component {
   };
 
   displayErrors = errors => 
-  errors.map((error, i)=><p key={i}>{error}</p>)
+  errors.map((error, i)=><p style={{color:"red"}}key={i}>{error}</p>)
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value })
@@ -57,6 +58,7 @@ class Login extends Component {
           <form className="col s12" onSubmit={event => this.submitForm(event)}>
             <div className="row">
               <div className="input-field col s12">
+                <label htmlFor="email" className="active">Email</label>
                 <input 
                   name="email" 
                   value={this.state.email}
@@ -65,7 +67,6 @@ class Login extends Component {
                   type="email" 
                   className="validate"
                 />
-                <label htmlFor="email">Email</label>
                 <span 
                   className="helper-text"
                   data-error="Type a right type email"
@@ -75,6 +76,7 @@ class Login extends Component {
             </div>
             <div className="row">
               <div className="input-field col s12">
+              <label htmlFor="password" className="active">Password</label>
                 <input 
                   name="password" 
                   value={this.state.password}
@@ -83,7 +85,6 @@ class Login extends Component {
                   type="password" 
                   className="validate"
                 />
-                <label htmlFor="password">Password</label>
                 <span 
                   className="helper-text"
                   data-error="wrong"
@@ -107,7 +108,16 @@ class Login extends Component {
                   onClick={this.submitForm}
                 >
                   Login
-                </button>
+                </button> &nbsp; &nbsp;
+                <Link to="/register">
+                  <button 
+                    className="btn waves-effect waves-light blue"
+                    type="submit"
+                    name="action"
+                  >
+                    Sing up
+                  </button>
+                </Link>
               </div>
             </div>
           </form>
