@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { registerUser } from "../../actions/user_actions";
+import { connect } from 'react-redux';
+
 
 class Register extends Component {
 
@@ -58,15 +61,36 @@ class Register extends Component {
     event.preventDefault();
 
     let datoToSubmit = {
-      lastname: this.state.lastname,
       name: this.state.name,
+      lastname: this.state.lastname,
       email: this.state.email, 
       password: this.state.password,
       passwordConfirmation: this.state.passwordConfirmation 
     } 
 
     if(this.isFormvalid()){
-
+      this.setState({ errors:[] });
+      this.props.dispatch(registerUser(datoToSubmit))
+        .then(response=>{
+          if(response.payload.success){
+            this.props.history.push('/login');
+          }else{
+            this.setState({ 
+              errors:this.state.errors.concat("your attempt to send data to DB was failed") 
+            })
+          }
+        })
+        .catch(err=>{
+          this.setState({
+            errors: this.state.errors.concat(err)
+          })
+        })
+    }else{
+      this.setState({ 
+        errors: this.state.errors.concat(
+          "Form is not valid"
+        )
+      })
     }
   }
 
@@ -77,24 +101,6 @@ class Register extends Component {
         <h2>Sign up</h2>
         <div className="row">
           <form className="col s12" onSubmit={event => this.submitForm(event)}>
-            <div className="row">
-              <div className="input-field col s12">
-                <label htmlFor="lastname" className="active">Last name</label>
-                <input 
-                  name="lastname" 
-                  value={this.state.lastname}
-                  onChange={e=>this.handleChange(e)}
-                  id="lastname"
-                  type="text" 
-                  className="validate"
-                />
-                <span 
-                  className="helper-text"
-                  data-error="Type a right type last name"
-                  data-success="right"
-                />
-              </div>
-            </div>
             <div className="row">
               <div className="input-field col s12">
               <label htmlFor="name" className="active">Name</label>
@@ -109,6 +115,24 @@ class Register extends Component {
                 <span 
                   className="helper-text"
                   data-error="wrong"
+                  data-success="right"
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="input-field col s12">
+                <label htmlFor="lastname" className="active">Last name</label>
+                <input 
+                  name="lastname" 
+                  value={this.state.lastname}
+                  onChange={e=>this.handleChange(e)}
+                  id="lastname"
+                  type="text" 
+                  className="validate"
+                />
+                <span 
+                  className="helper-text"
+                  data-error="Type a right type last name"
                   data-success="right"
                 />
               </div>
@@ -183,4 +207,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default connect()(Register);
